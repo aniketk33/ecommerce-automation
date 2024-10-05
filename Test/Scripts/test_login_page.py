@@ -11,7 +11,7 @@ from src.PageObjects.Pages.LoginPage import LoginPage
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
  
-username = "aniket123456@yopmail.com"
+username = "aniket1@yopmail.com"
 password = "Test@123"
  
 class TestLoginPage(WebDriverSetup):
@@ -21,8 +21,9 @@ class TestLoginPage(WebDriverSetup):
             login_obj = LoginPage(driver)
 
             # check for login page
-            check_title = 'Account Login'
-            self.assertEqual(driver.title, check_title)
+            check_title = 'Log in'
+            form_title = driver.find_element(By.XPATH, Locator.form_title).text
+            self.assertEqual(check_title, form_title)
     
             sleep(1)
             login_obj.enter_username(username)
@@ -32,7 +33,7 @@ class TestLoginPage(WebDriverSetup):
             login_obj.click_login()
             sleep(5)
 
-            assert login_obj.verify_login_page()
+            assert login_obj.verify_login_page(driver.current_url)
             
             print("User Logged in successfully")
             print("Login test completed successfully")

@@ -14,10 +14,11 @@ class LoginPage:
     def click_login(self):
         self.driver.find_element(By.XPATH, locators.Locator.login_button_id).click()
 
-    def verify_login_page(self):
+    def verify_login_page(self, curr_url):
         try:
             # check for successful login
-            login_title = 'My Account'
-            return self.driver.title == login_title
+            print(f'Current URL: {curr_url}')
+            target_url = 'https://rahulshettyacademy.com/client/dashboard/dash'
+            return curr_url == target_url
         except Exception as error:
             assert False, f"Error occurred: {error}"

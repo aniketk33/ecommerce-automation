@@ -8,11 +8,11 @@ class Locator:
     register_val = '//ul[@class="dropdown-menu dropdown-menu-right"]/li/a[text()="Register"]'
 
     # Login Page Locators
-    email_textbox_id = '//*[@id="input-email"]'
-    password_textbox_id = '//*[@id="input-password"]'
-    login_button_id = '//input[@value="Login"]'
-    login_page_register_button_id = '//div[@class="well"]/a/text()'
-    login_page_forgot_password_button_id = '//div[@class="form-group"]/a/text()'
+    email_textbox_id = '//*[@id="userEmail"]'
+    password_textbox_id = '//*[@id="userPassword"]'
+    login_button_id = '//*[@id="login"]'
+    login_page_register_button_id = '//*[@class="text-reset"]'
+    login_page_forgot_password_button_id = '//*[@class="forgot-password-link"]'
 
     # Register Page Locators
     register_link = '//*[@routerlink="/auth/register"]'
