@@ -4,7 +4,7 @@ import urllib3
  
 class WebDriverSetup(unittest.TestCase):
     def setUp(self):
-        self.URL = "https://rahulshettyacademy.com/client/"
+        self.URL = "https://tutorialsninja.com/demo/index.php?route=account/login"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         self.driver = webdriver.Safari()
         self.driver.implicitly_wait(10)
