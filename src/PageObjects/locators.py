@@ -2,6 +2,11 @@ class Locator:
     # form title for login and registration page
     form_title = '//*[@class="login-title"]'
     
+    # home page locators
+    my_account_dropdown = '//ul[@class="list-inline"]/li[@class="dropdown"]/a'
+    login_val = '//ul[@class="dropdown-menu dropdown-menu-right"]/li/a[text()="Login"]'
+    register_val = '//ul[@class="dropdown-menu dropdown-menu-right"]/li/a[text()="Register"]'
+
     # Login Page Locators
     email_textbox_id = '//*[@id="input-email"]'
     password_textbox_id = '//*[@id="input-password"]'

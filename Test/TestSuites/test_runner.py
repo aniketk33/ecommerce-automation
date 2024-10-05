@@ -4,7 +4,7 @@ import os
 sys.path.append(os.getcwd())
  
 from unittest import TestLoader, TestSuite, TextTestRunner
-from Test.Scripts import test_login_page, test_register_page
+from Test.Scripts import test_login_page, test_register_page, test_home_page
  
 if __name__ == "__main__":
  
@@ -12,7 +12,8 @@ if __name__ == "__main__":
     # Test Suite is used since there are multiple test cases
     test_suite = TestSuite((
         # test_loader.loadTestsFromTestCase(test_login_page.TestLoginPage),
-        test_loader.loadTestsFromTestCase(test_register_page.TestRegisterPage),
+        # test_loader.loadTestsFromTestCase(test_register_page.TestRegisterPage),
+        test_loader.loadTestsFromTestCase(test_home_page.TestHomePage),
         ))
  
     test_runner = TextTestRunner(verbosity=2)
