@@ -14,7 +14,8 @@ class LoginPage:
     def click_login(self):
         self.driver.find_element(By.XPATH, locators.Locator.login_button_id).click()
 
-    def verify_login_page(self, curr_url):
+    def verify_login_success_page(self, curr_url):
+        """Navigate to the dashboard page and verify if the current URL is the dashboard page"""
         try:
             # check for successful login
             print(f'Current URL: {curr_url}')

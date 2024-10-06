@@ -2,10 +2,13 @@ class Locator:
     # form title for login and registration page
     form_title = '//*[@class="login-title"]'
     
-    # home page locators
-    my_account_dropdown = '//ul[@class="list-inline"]/li[@class="dropdown"]/a'
-    login_val = '//ul[@class="dropdown-menu dropdown-menu-right"]/li/a[text()="Login"]'
-    register_val = '//ul[@class="dropdown-menu dropdown-menu-right"]/li/a[text()="Register"]'
+    # dashboard page locators
+    # /html/body/app-root/app-dashboard/app-sidebar/nav/ul/li[4]/button
+    cart_button = '//*[@routerlink="/dashboard/cart"]' 
+    add_to_cart_button = '//div[@class="card-body"]/button[text()=" Add To Cart"]'
+    item_name = '//div[@class="card-body"]/h5'
+    # items_list = '//*[@class="row"]//div[@class="card-body"]'
+    items_list = '//div[@class="container"]//div[@class="row"]//div[@class="card-body"]'
 
     # Login Page Locators
     email_textbox_id = '//*[@id="userEmail"]'
@@ -27,3 +30,6 @@ class Locator:
     register_button = '//*[@id="login"]'
     verify_registration = '//*[@class="headcolor"]'
     redirect_to_login = '//*[@routerlink="/auth"]'
+
+    # cart page locators
+    continue_shop_button = '//div[@class="heading cf"]/button'
