@@ -39,3 +39,10 @@ class Locator:
 
     # checkout page locators
     place_order_button = '//a[text()="Place Order "]'
+    credit_card_number_input = '//div[@class="form__cc"]//input[contains(@class, "text-validated")]'
+    cvv_input = '//div[@class="form__cc"]//div[contains(.,"CVV Code")]/input'
+    country_name_input = '//input[@placeholder="Select Country"]'
+    card_name = '//div[contains(., "Name on Card ")]/input'
+
+    # order confirmation page
+    order_confirmation_text = '//*[contains(.," Thankyou for the order. ")]'

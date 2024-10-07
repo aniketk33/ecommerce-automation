@@ -4,11 +4,18 @@ from selenium import webdriver
 import urllib3
 from src.PageObjects.Pages.LoginPage import LoginPage
 from src.PageObjects.Pages.DashboardPage import DashboardPage
+from src.PageObjects.Pages.CartPage import CartPage
+from src.PageObjects.Pages.CheckoutPage import CheckoutPage
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
  
 username = "aniket1@yopmail.com"
 password = "Test@123"
+
+cc_number = "1234567890123456"
+cvv = "123"
+name = "Aniket"
+country = "India"
 
 class WebDriverSetup(unittest.TestCase):
     def setUp(self):
@@ -83,3 +90,73 @@ class WebDriverSetup(unittest.TestCase):
         sleep(2)
         dashboard_obj.verify_cart_page()
         print("Cart page loaded successfully")
+
+    def cart_page(self):
+        driver = self.driver
+        # cart page
+        cart_page = CartPage(driver)
+        sleep(2)
+
+        # verify cart page
+        assert cart_page.verify_cart_page(), "Cart page not displayed"
+        sleep(2)
+        print("Cart page displayed")
+
+        # check items in cart
+        assert cart_page.check_items_in_cart(), "No items in cart"
+        sleep(2)
+        print("Items in cart")
+
+        # click checkout button
+        cart_page.click_checkout_button(), "Checkout button not clicked"
+        sleep(2)
+        print("Checkout button clicked")
+
+        # verify checkout page
+        assert cart_page.verify_checkout_page(), "Checkout page not displayed"
+        sleep(2)
+
+    def checkout_page(self):
+        driver = self.driver
+
+        checkout = CheckoutPage(driver)
+        
+        # verify checkout page
+        assert checkout.verify_checkout_page(), "Checkout page not displayed"
+        sleep(3)
+
+        # clear prefilled details
+        checkout.clear_cc_number_input()
+        print("Cleared CC number input")
+        sleep(3)
+
+        # enter cc number
+        checkout.enter_cc_number(cc_number)
+        print("Entered CC number")
+        sleep(3)
+
+
+        # enter cvv code
+        checkout.enter_cvv(cvv)
+        print("Entered CVV code")
+        sleep(3)
+
+        # enter name
+        checkout.enter_name(name)
+        print("Entered name")
+        sleep(3)
+
+        # enter country
+        checkout.enter_country(country)
+        print("Entered country")
+        sleep(3)
+
+        # place order
+        checkout.place_order()
+        print("Placed order clicked")
+        sleep(3)
+
+        # verify order success
+        assert checkout.verify_order_success(), "Order unsuccessful"
+        print("Order success verified")
+        sleep(3)
