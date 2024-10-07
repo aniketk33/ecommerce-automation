@@ -6,6 +6,7 @@ from src.PageObjects.Pages.LoginPage import LoginPage
 from src.PageObjects.Pages.DashboardPage import DashboardPage
 from src.PageObjects.Pages.CartPage import CartPage
 from src.PageObjects.Pages.CheckoutPage import CheckoutPage
+from src.PageObjects.Pages.OrderSuccessPage import OrderSuccessPage
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
  
@@ -17,11 +18,17 @@ cvv = "123"
 name = "Aniket"
 country = "India"
 
+download_path = '/Users/aniketkumar/Desktop/Aniket/Interview Assignment/mnc/automation/receipts/'
+prefs = {'download.default_directory' : download_path}
+
 class WebDriverSetup(unittest.TestCase):
     def setUp(self):
         self.URL = "https://rahulshettyacademy.com/client/"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-        self.driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions() 
+        options.add_experimental_option('prefs', prefs)
+        # options.add_argument(f"download.default_directory={download_path}")
+        self.driver = webdriver.Chrome(options=options)
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
         self.driver.get(self.URL)
@@ -123,40 +130,54 @@ class WebDriverSetup(unittest.TestCase):
         
         # verify checkout page
         assert checkout.verify_checkout_page(), "Checkout page not displayed"
-        sleep(3)
+        sleep(2)
 
         # clear prefilled details
         checkout.clear_cc_number_input()
         print("Cleared CC number input")
-        sleep(3)
+        sleep(2)
 
         # enter cc number
         checkout.enter_cc_number(cc_number)
         print("Entered CC number")
-        sleep(3)
+        sleep(2)
 
 
         # enter cvv code
         checkout.enter_cvv(cvv)
         print("Entered CVV code")
-        sleep(3)
+        sleep(2)
 
         # enter name
         checkout.enter_name(name)
         print("Entered name")
-        sleep(3)
+        sleep(2)
 
         # enter country
         checkout.enter_country(country)
         print("Entered country")
-        sleep(3)
+        sleep(2)
 
         # place order
         checkout.place_order()
         print("Placed order clicked")
-        sleep(3)
+        sleep(2)
 
         # verify order success
         assert checkout.verify_order_success(), "Order unsuccessful"
         print("Order success verified")
-        sleep(3)
+        sleep(2)
+
+    def order_success_page(self):
+        driver = self.driver
+
+        # order success page
+        checkout = OrderSuccessPage(driver)
+
+        # verify order success page
+        assert checkout.verify_order_success_page(), "Order success page not displayed"
+        sleep(2)
+
+        # download order receipt
+        checkout.download_order_receipt()
+        print("Order receipt downloaded")

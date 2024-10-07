@@ -46,3 +46,4 @@ class Locator:
 
     # order confirmation page
     order_confirmation_text = '//*[contains(.," Thankyou for the order. ")]'
+    download_details_button = '//button[contains(., "Excel")]'
