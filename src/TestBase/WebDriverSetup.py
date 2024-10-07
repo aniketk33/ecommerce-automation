@@ -3,6 +3,7 @@ import unittest
 from selenium import webdriver
 import urllib3
 import src.utilities as utils
+from src.PageObjects.Pages.RegisterPage import RegisterPage
 from src.PageObjects.Pages.LoginPage import LoginPage
 from src.PageObjects.Pages.DashboardPage import DashboardPage
 from src.PageObjects.Pages.CartPage import CartPage
@@ -31,6 +32,42 @@ class WebDriverSetup(unittest.TestCase):
             print("Cleanup of test environment")
             self.driver.close()
             self.driver.quit()
+
+    def register_page(self):
+        driver = self.driver
+        register_obj = RegisterPage(driver)
+
+        register_obj.open_register_page()
+        # add wait after loading the page
+        self.driver.explicitly_wait(10)
+
+        check_title = 'Register'
+        form_title = driver.find_element(By.XPATH, Locator.form_title).text
+        assert check_title == form_title, "Register page not loaded successfully"
+
+        register_obj.enter_first_name(utils.first_name)
+        sleep(1)
+        register_obj.enter_last_name(utils.last_name)
+        sleep(1)
+        register_obj.enter_email(utils.email)
+        print("Email entered: ", utils.email)
+        sleep(1)
+        register_obj.enter_phone(utils.phone)
+        sleep(1)
+        register_obj.enter_password(utils.password)
+        sleep(1)
+        register_obj.enter_confirm_password(utils.confirm_password)
+        sleep(1)
+        register_obj.click_above_18_checkbox()
+        sleep(1)
+        register_obj.click_register_button()
+        sleep(3)
+
+        # check for successful registration
+        assert register_obj.verify_registration()
+
+        register_obj.redirect_to_login_page()
+        sleep(5)
 
     def login(self):
         driver = self.driver
