@@ -33,3 +33,9 @@ class Locator:
 
     # cart page locators
     continue_shop_button = '//div[@class="heading cf"]/button'
+    # to check if any item present by checking its visibility
+    buy_now_button = '//button[text()="Buy Now"]'
+    checkout_button = '//button[text()="Checkout"]'
+
+    # checkout page locators
+    place_order_button = '//a[text()="Place Order "]'
