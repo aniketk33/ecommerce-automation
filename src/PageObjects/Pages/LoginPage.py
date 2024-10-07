@@ -10,9 +10,8 @@ class LoginPage:
     
     def verify_login_page(self):
         try:
-            check_title = 'Log in'
             correct_form_title = WebDriverWait(self.driver, 10).until(
-                EC.text_to_be_present_in_element((By.XPATH, Locator.form_title), check_title)
+                EC.text_to_be_present_in_element((By.XPATH, Locator.form_title), utils.login_form_title)
             )
             assert correct_form_title, "Login page not displayed"
         except Exception as error:

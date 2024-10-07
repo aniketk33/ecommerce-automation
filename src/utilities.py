@@ -11,8 +11,10 @@ dashboard_url = 'https://rahulshettyacademy.com/client/dashboard/dash'
 # login test data
 username = "aniket1@yopmail.com"
 password = "Test@123"
+login_form_title = "Log in"
 
 # register page test data
+register_form_title = 'Register'
 first_name = 'Test'
 last_name = 'User'
 unique_id = uuid.uuid4().hex[:6].upper()

@@ -2,6 +2,7 @@ from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import src.utilities as utils
 
 class RegisterPage:
     def __init__(self, driver):
@@ -12,9 +13,8 @@ class RegisterPage:
     
     def verify_register_page(self):
         try:
-            check_title = 'Register'
             correct_form_title = WebDriverWait(self.driver, 10).until(
-                EC.text_to_be_present_in_element((By.XPATH, Locator.form_title), check_title)
+                EC.text_to_be_present_in_element((By.XPATH, Locator.form_title), utils.register_form_title)
             )
             assert correct_form_title, "Register page not displayed"
         except Exception as error:
