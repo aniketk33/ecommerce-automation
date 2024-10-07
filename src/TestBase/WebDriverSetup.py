@@ -83,6 +83,7 @@ class WebDriverSetup(unittest.TestCase):
 
         LoginPage(driver).verify_login_page()
         print("Login page loaded successfully")
+        sleep(2)
 
 
     def login(self):
@@ -106,6 +107,7 @@ class WebDriverSetup(unittest.TestCase):
         sleep(1)
 
         DashboardPage(driver).verify_dashboard_page()
+        sleep(2)
     
     def dashboard_page(self):
         driver = self.driver
@@ -141,6 +143,7 @@ class WebDriverSetup(unittest.TestCase):
         # verify add to cart page
         CartPage(driver).verify_cart_page()
         print("Cart page loaded successfully")
+        sleep(2)
 
     def cart_page(self):
         driver = self.driver

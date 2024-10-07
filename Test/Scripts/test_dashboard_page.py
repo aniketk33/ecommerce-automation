@@ -15,7 +15,6 @@ class TestDashboardPage(WebDriverSetup):
 
             # dashboard page
             self.dashboard_page()
-            sleep(3)
 
             print("Dashboard test completed successfully")
         
