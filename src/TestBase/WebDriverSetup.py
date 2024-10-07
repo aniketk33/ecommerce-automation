@@ -2,6 +2,7 @@ from time import sleep
 import unittest
 from selenium import webdriver
 import urllib3
+import src.utilities as utils
 from src.PageObjects.Pages.LoginPage import LoginPage
 from src.PageObjects.Pages.DashboardPage import DashboardPage
 from src.PageObjects.Pages.CartPage import CartPage
@@ -9,29 +10,20 @@ from src.PageObjects.Pages.CheckoutPage import CheckoutPage
 from src.PageObjects.Pages.OrderSuccessPage import OrderSuccessPage
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
- 
-username = "aniket1@yopmail.com"
-password = "Test@123"
 
-cc_number = "1234567890123456"
-cvv = "123"
-name = "Aniket"
-country = "India"
-
-download_path = '/Users/aniketkumar/Desktop/Aniket/Interview Assignment/mnc/automation/receipts/'
-prefs = {'download.default_directory' : download_path}
 
 class WebDriverSetup(unittest.TestCase):
     def setUp(self):
-        self.URL = "https://rahulshettyacademy.com/client/"
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        # set the download path for Chrome browser
+        prefs = {'download.default_directory' : utils.receipt_download_path}
         options = webdriver.ChromeOptions() 
         options.add_experimental_option('prefs', prefs)
-        # options.add_argument(f"download.default_directory={download_path}")
+
         self.driver = webdriver.Chrome(options=options)
         self.driver.implicitly_wait(10)
         self.driver.maximize_window()
-        self.driver.get(self.URL)
+        self.driver.get(utils.base_url)
         self.driver.set_page_load_timeout(360)
  
     def tearDown(self):
@@ -51,10 +43,10 @@ class WebDriverSetup(unittest.TestCase):
         assert check_title == form_title
 
         sleep(1)
-        login_obj.enter_username(username)
+        login_obj.enter_username(utils.username)
         print("Username entered")
         sleep(1)
-        login_obj.enter_password(password) 
+        login_obj.enter_password(utils.password) 
         print("Password entered")
         sleep(1)
         print('Verify credentials')
@@ -80,7 +72,7 @@ class WebDriverSetup(unittest.TestCase):
         for item in items:
             item_obj = item.find_element(By.XPATH, Locator.item_name)
             # print(f'Item: {item_obj.text}')
-            if item_obj.text == dashboard_obj.product_name and item_obj.text not in items_added:
+            if item_obj.text == utils.product_name and item_obj.text not in items_added:
                 # get the add to cart button
                 add_to_cart_button = item.find_element(By.XPATH, Locator.add_to_cart_button)
                 add_to_cart_button.click()
@@ -138,23 +130,23 @@ class WebDriverSetup(unittest.TestCase):
         sleep(2)
 
         # enter cc number
-        checkout.enter_cc_number(cc_number)
+        checkout.enter_cc_number(utils.cc_number)
         print("Entered CC number")
         sleep(2)
 
 
         # enter cvv code
-        checkout.enter_cvv(cvv)
+        checkout.enter_cvv(utils.cvv)
         print("Entered CVV code")
         sleep(2)
 
         # enter name
-        checkout.enter_name(name)
+        checkout.enter_name(utils.name_on_card)
         print("Entered name")
         sleep(2)
 
         # enter country
-        checkout.enter_country(country)
+        checkout.enter_country(utils.country)
         print("Entered country")
         sleep(2)
 

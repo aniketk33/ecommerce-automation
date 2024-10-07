@@ -5,11 +5,7 @@ sys.path.append(sys.path[0] + "/...")
  
 import unittest
 from time import sleep
-
 from src.TestBase.WebDriverSetup import WebDriverSetup
-from src.PageObjects.Pages.DashboardPage import DashboardPage
-from src.PageObjects.locators import Locator
-from selenium.webdriver.common.by import By
  
 class TestDashboardPage(WebDriverSetup):
     def test_dashboard_page(self):

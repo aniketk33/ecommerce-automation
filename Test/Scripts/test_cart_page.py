@@ -6,7 +6,6 @@ sys.path.append(sys.path[0] + "/...")
 import unittest
 from time import sleep
 from src.TestBase.WebDriverSetup import WebDriverSetup
-from src.PageObjects.Pages.CartPage import CartPage
  
 class TestCartPage(WebDriverSetup):
     def test_cart_page(self):

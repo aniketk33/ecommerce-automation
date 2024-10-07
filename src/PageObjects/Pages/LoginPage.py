@@ -1,5 +1,6 @@
 import src.PageObjects.locators as locators
 from selenium.webdriver.common.by import By
+import src.utilities as utils
 
 class LoginPage:
     def __init__(self, driver):
@@ -19,7 +20,7 @@ class LoginPage:
         try:
             # check for successful login
             print(f'Current URL: {curr_url}')
-            target_url = 'https://rahulshettyacademy.com/client/dashboard/dash'
+            target_url = utils.dashboard_url
             return curr_url == target_url
         except Exception as error:
             assert False, f"Error occurred: {error}"
