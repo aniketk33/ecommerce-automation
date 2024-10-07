@@ -20,12 +20,12 @@ class TestCartPage(WebDriverSetup):
             self.cart_page()
 
             print("Checkout page displayed")
-
             print("Cart test completed successfully")
 
         except Exception as error:
             print(error)
-            print("Cart test failed")
+            # print("Cart test failed")
+
         
  
 if __name__ == '__main__':

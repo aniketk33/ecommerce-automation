@@ -38,59 +38,74 @@ class WebDriverSetup(unittest.TestCase):
         register_obj = RegisterPage(driver)
 
         register_obj.open_register_page()
-        # add wait after loading the page
-        self.driver.explicitly_wait(10)
 
-        check_title = 'Register'
-        form_title = driver.find_element(By.XPATH, Locator.form_title).text
-        assert check_title == form_title, "Register page not loaded successfully"
+        register_obj.verify_register_page()
+        print("Register page loaded successfully")
 
         register_obj.enter_first_name(utils.first_name)
+        print('First name entered')
         sleep(1)
+
         register_obj.enter_last_name(utils.last_name)
+        print('Last name entered')
         sleep(1)
+
         register_obj.enter_email(utils.email)
-        print("Email entered: ", utils.email)
+        print("Email entered")
         sleep(1)
+
         register_obj.enter_phone(utils.phone)
+        print("Phone entered")
         sleep(1)
+
         register_obj.enter_password(utils.password)
+        print("Password entered")
         sleep(1)
+
         register_obj.enter_confirm_password(utils.confirm_password)
+        print("Confirm password entered")
         sleep(1)
+
         register_obj.click_above_18_checkbox()
+        print("Checkbox clicked")
         sleep(1)
+
         register_obj.click_register_button()
+        print("Register button clicked")
         sleep(3)
 
         # check for successful registration
-        assert register_obj.verify_registration()
+        register_obj.verify_registration()
 
         register_obj.redirect_to_login_page()
-        sleep(5)
+        print("Redirected to login page")
+        sleep(1)
+
+        LoginPage(driver).verify_login_page()
+        print("Login page loaded successfully")
+
 
     def login(self):
         driver = self.driver
         login_obj = LoginPage(driver)
 
-        # check for login page
-        print("Testing Login Page")
-        check_title = 'Log in'
-        form_title = driver.find_element(By.XPATH, Locator.form_title).text
-        assert check_title == form_title
-
+        login_obj.verify_login_page()
+        print("Login page loaded successfully")
         sleep(1)
+
         login_obj.enter_username(utils.username)
         print("Username entered")
         sleep(1)
+
         login_obj.enter_password(utils.password) 
         print("Password entered")
         sleep(1)
+
         print('Verify credentials')
         login_obj.click_login()
-        sleep(5)
+        sleep(1)
 
-        assert login_obj.verify_login_success_page(driver.current_url), "Login failed"
+        DashboardPage(driver).verify_dashboard_page()
     
     def dashboard_page(self):
         driver = self.driver
@@ -98,9 +113,9 @@ class WebDriverSetup(unittest.TestCase):
         items_added = set()
 
         # check for cart button
-        assert dashboard_obj.verify_dashboard_page(), "Dashboard page not loaded successfully"
+        dashboard_obj.verify_dashboard_page()
         print("Dashboard page loaded successfully")
-        sleep(2)
+        sleep(1)
 
         # select the given items
         items = dashboard_obj.get_items()
@@ -114,42 +129,46 @@ class WebDriverSetup(unittest.TestCase):
                 add_to_cart_button = item.find_element(By.XPATH, Locator.add_to_cart_button)
                 add_to_cart_button.click()
                 items_added.add(item_obj.text)
-                sleep(2)
+                sleep(1)
                 # click on cart button
                 print("Item added to cart successfully")
+        sleep(1)
 
-        sleep(2)
         dashboard_obj.click_cart_button()
         print("Clicked on cart button")
+        sleep(1)
 
         # verify add to cart page
-        sleep(2)
-        dashboard_obj.verify_cart_page()
+        CartPage(driver).verify_cart_page()
         print("Cart page loaded successfully")
 
     def cart_page(self):
         driver = self.driver
         # cart page
         cart_page = CartPage(driver)
-        sleep(2)
 
         # verify cart page
-        assert cart_page.verify_cart_page(), "Cart page not displayed"
-        sleep(2)
+        cart_page.verify_cart_page()
         print("Cart page displayed")
+        sleep(1)
 
         # check items in cart
-        assert cart_page.check_items_in_cart(), "No items in cart"
-        sleep(2)
+        cart_page.check_items_in_cart()
         print("Items in cart")
+        sleep(1)
+
+        # check checkout button visibility
+        cart_page.checkout_button_visibility()
+        print("Checkout button visible")
+        sleep(1)
 
         # click checkout button
-        cart_page.click_checkout_button(), "Checkout button not clicked"
+        cart_page.click_checkout_button()
         sleep(2)
         print("Checkout button clicked")
 
         # verify checkout page
-        assert cart_page.verify_checkout_page(), "Checkout page not displayed"
+        CheckoutPage(driver).verify_checkout_page()
         sleep(2)
 
     def checkout_page(self):
@@ -158,24 +177,24 @@ class WebDriverSetup(unittest.TestCase):
         checkout = CheckoutPage(driver)
         
         # verify checkout page
-        assert checkout.verify_checkout_page(), "Checkout page not displayed"
-        sleep(2)
+        checkout.verify_checkout_page()
+        sleep(1)
 
         # clear prefilled details
         checkout.clear_cc_number_input()
         print("Cleared CC number input")
-        sleep(2)
+        sleep(1)
 
         # enter cc number
         checkout.enter_cc_number(utils.cc_number)
         print("Entered CC number")
-        sleep(2)
+        sleep(1)
 
 
         # enter cvv code
         checkout.enter_cvv(utils.cvv)
         print("Entered CVV code")
-        sleep(2)
+        sleep(1)
 
         # enter name
         checkout.enter_name(utils.name_on_card)
@@ -185,17 +204,17 @@ class WebDriverSetup(unittest.TestCase):
         # enter country
         checkout.enter_country(utils.country)
         print("Entered country")
-        sleep(2)
+        sleep(1)
 
         # place order
         checkout.place_order()
         print("Placed order clicked")
-        sleep(2)
+        sleep(1)
 
         # verify order success
-        assert checkout.verify_order_success(), "Order unsuccessful"
+        OrderSuccessPage(driver).verify_order_success_page()
         print("Order success verified")
-        sleep(2)
+        sleep(1)
 
     def order_success_page(self):
         driver = self.driver
@@ -204,8 +223,8 @@ class WebDriverSetup(unittest.TestCase):
         checkout = OrderSuccessPage(driver)
 
         # verify order success page
-        assert checkout.verify_order_success_page(), "Order success page not displayed"
-        sleep(2)
+        checkout.verify_order_success_page()
+        sleep(1)
 
         # download order receipt
         checkout.download_order_receipt()

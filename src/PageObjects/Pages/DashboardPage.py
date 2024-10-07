@@ -1,5 +1,7 @@
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class DashboardPage:
@@ -8,8 +10,11 @@ class DashboardPage:
 
     def verify_dashboard_page(self):
         try:
-            cart_button = self.driver.find_element(By.XPATH, Locator.cart_button)
-            return cart_button.is_displayed()
+            cart_button = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, Locator.cart_button))
+            )
+            # print(cart_button)
+            assert cart_button.is_displayed(), "Dashboard page not displayed"
         except Exception as error:
             assert False, f"Error occurred: {error}"
 
@@ -22,10 +27,3 @@ class DashboardPage:
 
     def click_cart_button(self):
         self.driver.find_element(By.XPATH, Locator.cart_button).click()
-
-    def verify_cart_page(self):
-        try:
-            continue_shopping_button = self.driver.find_element(By.XPATH, Locator.continue_shop_button)
-            return continue_shopping_button.is_displayed()
-        except Exception as error:
-            assert False, f"Error occurred: {error}"

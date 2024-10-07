@@ -1,5 +1,7 @@
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class RegisterPage:
     def __init__(self, driver):
@@ -7,6 +9,16 @@ class RegisterPage:
 
     def open_register_page(self):
         self.driver.find_element(By.XPATH, Locator.register_link).click()
+    
+    def verify_register_page(self):
+        try:
+            check_title = 'Register'
+            correct_form_title = WebDriverWait(self.driver, 10).until(
+                EC.text_to_be_present_in_element((By.XPATH, Locator.form_title), check_title)
+            )
+            assert correct_form_title, "Register page not displayed"
+        except Exception as error:
+            assert False, f"Error occurred: {error}"
 
     def enter_first_name(self, first_name):
         self.driver.find_element(By.XPATH, Locator.first_name_textbox).send_keys(first_name)
@@ -38,7 +50,9 @@ class RegisterPage:
     def verify_registration(self):
         try:
             message = 'Account Created Successfully'
-            message_element = self.driver.find_element(By.XPATH, Locator.verify_registration)
-            return message_element.text == message
+            valid_message = WebDriverWait(self.driver, 10).until(
+                EC.text_to_be_present_in_element((By.XPATH, Locator.verify_registration), message)
+            )
+            assert valid_message, "Registration not successful"
         except Exception as error:
             assert False, f"Error occurred: {error}"

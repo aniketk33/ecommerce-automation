@@ -1,5 +1,7 @@
 from src.PageObjects.locators import Locator
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class CheckoutPage:
     def __init__(self, driver):
@@ -7,8 +9,10 @@ class CheckoutPage:
 
     def verify_checkout_page(self):
         try:
-            place_order_button = self.driver.find_element(By.XPATH, Locator.place_order_button)
-            return place_order_button.is_displayed()
+            place_order_button = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, Locator.place_order_button))
+            )
+            assert place_order_button.is_displayed(), "Checkout page not displayed"
         except Exception as error:
             assert False, f"Error occurred: {error}"
 
@@ -29,14 +33,9 @@ class CheckoutPage:
         self.driver.find_element(By.XPATH, Locator.country_name_input).send_keys(country)
         country_name = f'//button//span[text()=" {country}"]/ancestor-or-self::button'
         # click the button for selected country
-        self.driver.find_element(By.XPATH, country_name).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, country_name))
+        ).click()
 
     def place_order(self):
         self.driver.find_element(By.XPATH, Locator.place_order_button).click()
-
-    def verify_order_success(self):
-        try:
-            confirmation_text = self.driver.find_element(By.XPATH, Locator.order_confirmation_text)
-            return confirmation_text.is_displayed()
-        except Exception as error:
-            assert False, f"Error occurred: {error}"

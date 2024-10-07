@@ -1,7 +1,7 @@
 import sys
-sys.path.append(sys.path[0] + "/...")
-# import os
-# sys.path.append(os.getcwd())
+# sys.path.append(sys.path[0] + "/...")
+import os
+sys.path.append(os.getcwd())
  
 import unittest
 from src.TestBase.WebDriverSetup import WebDriverSetup
