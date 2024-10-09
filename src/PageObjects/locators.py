@@ -4,11 +4,12 @@ class Locator:
     
     # dashboard page locators
     # /html/body/app-root/app-dashboard/app-sidebar/nav/ul/li[4]/button
-    cart_button = '//*[@routerlink="/dashboard/cart"]' 
+    cart_button = '//button[@routerlink="/dashboard/cart"]' 
     add_to_cart_button = '//div[@class="card-body"]/button[text()=" Add To Cart"]'
     item_name = '//div[@class="card-body"]/h5'
     # items_list = '//*[@class="row"]//div[@class="card-body"]'
     items_list = '//div[@class="container"]//div[@class="row"]//div[@class="card-body"]'
+    loader = '//ngx-spinner/div'
 
     # Login Page Locators
     email_textbox_id = '//*[@id="userEmail"]'
@@ -45,5 +46,5 @@ class Locator:
     card_name = '//div[contains(., "Name on Card ")]/input'
 
     # order confirmation page
-    order_confirmation_text = '//*[contains(.," Thankyou for the order. ")]'
+    order_confirmation_text = '//*[contains(.,"Thankyou")]'
     download_details_button = '//button[contains(., "Excel")]'

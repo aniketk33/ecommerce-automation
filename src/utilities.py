@@ -7,6 +7,7 @@ receipt_download_path = '/Users/aniketkumar/Desktop/Aniket/Interview Assignment/
 # URLs
 base_url = "https://rahulshettyacademy.com/client/"
 dashboard_url = 'https://rahulshettyacademy.com/client/dashboard/dash'
+cart_url = 'https://rahulshettyacademy.com/client/dashboard/cart'
 
 # login test data
 username = "aniket1@yopmail.com"
